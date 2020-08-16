@@ -1,0 +1,30 @@
+const fs = require('fs');
+const yargs = require('yargs')
+const add = require('./ext.js');
+require("dotenv").config();
+
+yargs.command({
+    command: 'add',
+    describe: 'Adds a note',
+    builder: {
+      title:{
+        describe: 'Note Title',
+        type: 'string'
+      },
+      note: {
+        describe: 'Note Body',
+        type: 'string'
+      }
+    },
+    handler: function () {
+      console.log(argv)
+    }
+})
+
+
+
+log
+sum - 6
+sum - 7
+sum - 3
+sum - 4

@@ -1,0 +1,86 @@
+/// ---- //// /// ---- //// /// ---- //// /// ---- //// /// ---- //// /// ---- ////
+/// ENTRADA DE DADOS //// /// ---- //// /// ---- //// /// ---- //// /// ---- //// /// ---- ////
+
+const fs = require('fs');
+const yargs = require('yargs')
+const add = require('./ext.js');
+require("dotenv").config();
+
+if (process.argv[2] === `sum`){
+  var op = add(process.argv[3],process.argv[4]);
+  fs.appendFileSync('notes2.txt',process.argv[2] + ` - ` + op + "\n");
+}
+else if (process.argv[2] === undefined){
+console.log("está vazio");
+}
+else{
+  i = 2
+  while(process.argv[i] != undefined){
+  console.log(process.argv[i])
+  i++
+}
+}
+
+/// ---- //// /// ---- //// /// ---- //// /// ---- //// /// ---- //// /// ---- ////
+/// MYSQL //// /// ---- //// /// ---- //// /// ---- //// /// ---- //// /// ---- ////
+
+const fs = require('fs');
+const yargs = require('yargs')
+// const selectfunc = require('./ext.js');
+require("dotenv").config();
+const mysql = require('mysql');
+
+var selects = '*';
+const froms = "bannedPhrase";
+const conn = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'leiaoguia',
+  database: 'aline'
+});
+
+conn.query("select * from bannedPhrase", (err,rows) => {
+  if(err) throw err;
+console.log('Done');
+for(i = 0 ; rows[i] !== undefined ; i++){
+var num = i;
+if(rows[num] === undefined || rows[num] === null || rows[num].length === 0){
+return;
+}
+else console.log(rows[num].phrase);
+}
+});
+process.STOP;
+
+/// ---- //// /// ---- //// /// ---- //// /// ---- //// /// ---- //// /// ---- ////
+/// JSON //// /// ---- //// /// ---- //// /// ---- //// /// ---- //// /// ---- ////
+
+const fs = require('fs');
+const yargs = require('yargs')
+
+/*
+const book = {
+    title: 'Ego is the Enemy',
+    author: 'Ryan Holiday'
+}
+
+//converte o objeto para uma string (formato utilizado pelo JSON)
+const bookJSON = JSON.stringify(book)
+
+//converte a string para objeto
+const parsedData = JSON.parse(bookJSON)
+
+fs.writeFileSync('app-json.json', bookJSON)
+*/
+
+//recebe o objeto JSON em forma de buffer
+const dataBuffer = fs.readFileSync('app-json.json')
+console.log(dataBuffer)
+
+//converte o buffer para string
+const dataString = dataBuffer.toString()
+console.log(dataString)
+
+//converte a string para objeto
+const parsedData2 = JSON.parse(dataString)
+console.log(parsedData2)
